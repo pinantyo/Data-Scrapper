@@ -1,4 +1,4 @@
-import requests, os, io
+import requests, os, io, re
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfReader
 import pandas as pd
@@ -29,13 +29,13 @@ def normalize_text(text):
 	text = re.sub(url_pattern, "", text)
 
 	text = text.lower()                                   # Mengubah teks menjadi lower case
-	text = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", text)
+	# text = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", text)
 	text = re.sub(r'https?://\S+|www\.\S+', "", text)     # Menghapus URL
 	text = re.sub(r'[-+]?[0-9]+', "", text)               # Menghapus angka
 	text = re.sub(r'[^\w\s,.]', "", text)                 # Menghapus karakter tanda baca
 
 	text = text.split()
-	text = [i.strip() for i in text]
+	text = [i.strip() for i in text if len(i.strip()) > 1]
 	return " ".join(text)
 
 

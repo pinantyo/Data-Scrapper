@@ -1,6 +1,13 @@
-import requests, os, io
+import requests, os, io, random
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfReader
+
+
+
+
+dir_path_default = ''
+
+
 
 def get_journal(path, domain, index_journal, journal_page, SPage):
 	# Journal
@@ -41,7 +48,7 @@ def download_pdf(url, file_name, headers):
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
-        with open(f'pdf/{file_name}', "wb") as f:
+        with open(f'{dir_path_default}/{file_name}', "wb") as f:
             f.write(response.content)
     else:
         print(response.status_code)
@@ -49,6 +56,7 @@ def download_pdf(url, file_name, headers):
 
 
 if __name__ == '__main__':
+	global dir_path_default
 
 	# Init URL
 	domain = "https://garuda.kemdikbud.go.id"
@@ -56,12 +64,20 @@ if __name__ == '__main__':
 
 
 	# Create dir
-	if os.path.exists('pdf') == False:
+	if not os.path.exists('pdf'):
 		os.mkdir('pdf')
+		dir_path_default = 'pdf'
+	else:
+		random_int = random.randint(1, 20)
+		while True:
+			if not os.path.exists(f'pdf{random_int}'):
+				os.mkdir(f'pdf{random_int}')
+				dir_path_default = f'pdf{random_int}'
+				break
 
 
 	# Get Web
-	for index_site_page in range(27, 40):
+	for index_site_page in range(48, 60):
 		print(f'Pages: {domain+url}?page={index_site_page}')
 		read = requests.get(domain+url+f'?page={index_site_page}')
 		
