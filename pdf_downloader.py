@@ -56,8 +56,6 @@ def download_pdf(url, file_name, headers):
 
 
 if __name__ == '__main__':
-	global dir_path_default
-
 	# Init URL
 	domain = "https://garuda.kemdikbud.go.id"
 	url = "/area/index/60"
@@ -77,7 +75,7 @@ if __name__ == '__main__':
 
 
 	# Get Web
-	for index_site_page in range(48, 60):
+	for index_site_page in range(49, 60):
 		print(f'Pages: {domain+url}?page={index_site_page}')
 		read = requests.get(domain+url+f'?page={index_site_page}')
 		

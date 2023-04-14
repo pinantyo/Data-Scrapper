@@ -64,10 +64,10 @@ def get_data(pdf_path):
 
 
 if __name__ == '__main__':
-	list_of_pds = [f'pdf/{i}' for i in os.listdir('pdf')]
+	list_of_pds = [f'pdf10/{i}' for i in os.listdir('pdf10')]
 
-	if not os.path.exists('scrapped_data'):
-		os.mkdir('scrapped_data')
+	if not os.path.exists('scrapped_data2'):
+		os.mkdir('scrapped_data2')
 
 	for index, i in enumerate(list_of_pds):
 		try:
@@ -77,7 +77,7 @@ if __name__ == '__main__':
 		else:
 			if content:
 				try:
-					with open(f'scrapped_data/{index}.txt', 'w', encoding="utf-8") as f:
+					with open(f'scrapped_data2/{index}.txt', 'w', encoding="utf-8") as f:
 						f.write(content)
 				except:
 					print(f'{i} can\'t be scrapped')
